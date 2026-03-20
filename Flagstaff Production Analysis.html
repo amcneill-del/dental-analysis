@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flagstaff Production Analysis</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    header {
+      border-bottom: 3px solid #2E5E8C;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .practice-name {
+      color: #2E5E8C;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .report-type {
+      color: #666;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .date-range {
+      color: #999;
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    h1 {
+      color: #2E5E8C;
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    h1:first-of-type {
+      margin-top: 0;
+    }
+
+    h2 {
+      color: #2E5E8C;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 28px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      text-align: justify;
+      color: #444;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    thead {
+      background-color: #2E5E8C;
+      color: white;
+    }
+
+    th {
+      padding: 14px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e8e8e8;
+      font-size: 14px;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #f5f7fa;
+    }
+
+    tbody tr:hover {
+      background-color: #eff3f8;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 2px solid #2E5E8C;
+    }
+
+    strong {
+      color: #2E5E8C;
+      font-weight: 600;
+    }
+
+    em {
+      color: #666;
+    }
+
+    .highlight-box {
+      background-color: #eff3f8;
+      border-left: 4px solid #2E5E8C;
+      padding: 16px;
+      margin: 24px 0;
+      border-radius: 2px;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      color: #333;
+    }
+
+    @media print {
+      body {
+        background-color: white;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      h1, h2 {
+        page-break-after: avoid;
+      }
+
+      table {
+        page-break-inside: avoid;
+      }
+
+      tr {
+        page-break-inside: avoid;
+      }
+
+      tbody tr:nth-child(odd) {
+        background-color: #f5f7fa !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="report-type">Production Analysis Report</div>
+      <div class="practice-name">Flagstaff</div>
+      <div class="date-range">Q1 2025 vs Q1 2026</div>
+    </header>
+
+    <h1>Executive Summary</h1>
+    <p>This analysis examines whether the production differences at Flagstaff between Q1 2025 and Q1 2026 are attributable to marketing (patient flow), clinical (diagnosis/acceptance), or operational (team execution/scheduling) factors.</p>
+    <p><strong>Key Finding:</strong></p>
+    <p>New patient volume is UP 42% (88 to 125 patients), which demonstrates strong marketing performance. However, dollar production metrics show mixed signals: case dollars presented and accepted are down 9%, same-day treatment is down 24%, and appointments per working day dropped 14%. The production scheduled gross is up 70%, but this tells a complex story.</p>
+    <p>The data suggests the challenge is NOT patient quality or patient flow — it's execution across diagnosis, scheduling efficiency, and same-day treatment capture. Marketing delivered more patients; the question is whether the operational infrastructure is fully converting that volume.</p>
+
+    <h1>Section 1: New Patient Flow</h1>
+    <p>Is it actually a marketing problem?</p>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+          <th><strong>% Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>New Patients</td>
+          <td>88</td>
+          <td>125</td>
+          <td>+37</td>
+          <td>+42.0%</td>
+        </tr>
+        <tr>
+          <td>Online Scheduled NP</td>
+          <td>—</td>
+          <td>9</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>NP Missing Referral Source</td>
+          <td>80</td>
+          <td>97</td>
+          <td>+17</td>
+          <td>+21.3%</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: Marketing is delivering patients. New patient volume is UP 42% year-over-year, which is a strong signal that the pipeline is healthy and marketing is performing its function. The increase from 88 to 125 patients means 37 additional new patients came through the door — this cannot be dismissed as weak marketing.</p>
+    <p>Referral source tracking shows 97 patients missing referral source data in 2026 (up from 80 in 2025), which suggests a tracking issue rather than a marketing issue. The raw volume increase is unambiguous.</p>
+
+    <h1>Section 2: Conversion — Are They Converting the Patients They Have?</h1>
+    <h2 id="case-acceptance">Case Acceptance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Case Acceptance % (New Patients)</td>
+          <td>85.4%</td>
+          <td>83.1%</td>
+          <td>-2.3 pts</td>
+        </tr>
+        <tr>
+          <td>Case Acceptance % (Overall)</td>
+          <td>80.8%</td>
+          <td>84.1%</td>
+          <td>+3.3 pts</td>
+        </tr>
+        <tr>
+          <td>Case $ Presented</td>
+          <td>$910,639</td>
+          <td>$828,329</td>
+          <td>-$82,310 (-9.0%)</td>
+        </tr>
+        <tr>
+          <td>Case $ Accepted</td>
+          <td>$668,370</td>
+          <td>$605,663</td>
+          <td>-$62,707 (-9.4%)</td>
+        </tr>
+        <tr>
+          <td>Case $ Accepted %</td>
+          <td>55.8%</td>
+          <td>57.0%</td>
+          <td>+1.2 pts</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: Overall case acceptance is STRONG and improving. The overall acceptance rate increased from 80.8% to 84.1% — this is healthy. However, there is a critical discrepancy: new patient case acceptance declined 2.3 points (85.4% to 83.1%), while overall acceptance rose 3.3 points.</p>
+    <p>This pattern suggests that while new patients are accepting at slightly lower rates, existing/established patients are accepting at higher rates overall. The dollars presented and accepted are both down ~9%, which points to either (a) smaller treatment plans being diagnosed to the newer cohort, or (b) a shift in the case mix being presented.</p>
+    <p>Key concern: If more patients are coming through the door but presenting dollars are down, it implies the doctor may be under-diagnosing or under-presenting to the expanded patient pool, rather than patients declining cases.</p>
+
+    <h2 id="diagnosis-rate">Diagnosis Rate</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Case Diagnosed % Hygiene</td>
+          <td>11.1%</td>
+          <td>13.4%</td>
+          <td>+2.3 pts</td>
+        </tr>
+        <tr>
+          <td>Case Diagnosed % Restorative</td>
+          <td>38.0%</td>
+          <td>36.6%</td>
+          <td>-1.4 pts</td>
+        </tr>
+        <tr>
+          <td>Perio Presented %</td>
+          <td>14.2%</td>
+          <td>14.6%</td>
+          <td>+0.4 pts</td>
+        </tr>
+        <tr>
+          <td>Perio Visit %</td>
+          <td>13.7%</td>
+          <td>14.6%</td>
+          <td>+0.9 pts</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: Diagnosis rates are mixed. Hygiene diagnosis improved (+2.3 points), but restorative diagnosis declined (-1.4 points). Given that new patient volume is up 42%, a flat-to-declining diagnosis rate suggests the office may not be fully evaluating the expanded patient base for treatment opportunities.</p>
+    <p>The perio metrics show minor improvement, but perio remains a very low percentage of the patient base (14.6% presented, 14.6% visiting). This is not a driver of the production variance.</p>
+
+    <h1>Section 3: Existing Patient Utilization</h1>
+    <h2 id="unscheduled-treatment">Unscheduled Treatment</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Unscheduled Active Patients</td>
+          <td>1,171</td>
+          <td>Not Reported</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Unscheduled Opportunity $</td>
+          <td>$1,760,446</td>
+          <td>$0</td>
+          <td>-$1,760,446 (-100%)</td>
+        </tr>
+        <tr>
+          <td>Unscheduled Avg Appt Value</td>
+          <td>$1,566,930</td>
+          <td>$0</td>
+          <td>-$1,566,930 (-100%)</td>
+        </tr>
+        <tr>
+          <td>Unscheduled 0-6 Months</td>
+          <td>336</td>
+          <td>331</td>
+          <td>-5 (-1.5%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis — CRITICAL ALERT: The unscheduled opportunity column shows $1.76M in Q1 2025 dropping to $0 in Q1 2026. This is either a data reporting issue (the system stopped tracking unscheduled work) or the practice has successfully scheduled virtually all diagnosed work.</p>
+    <p>If this represents genuine capture: Eliminating $1.76M in sitting unscheduled work and moving to a 0-backlog model is operationally powerful. This would explain why production scheduled gross jumped 70% — the practice is scheduling more aggressively from the active treatment queue.</p>
+    <p>If this is a reporting change: The metric should be clarified with the practice. Either way, the presence of 331 unscheduled patients in the 0-6 month window suggests there is still fresh opportunity not yet scheduled.</p>
+
+    <h2 id="hygiene-funnel">Hygiene Funnel</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Active Hygiene Patients</td>
+          <td>2,780</td>
+          <td>Not Reported</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Hygiene Re-Appointment %</td>
+          <td>43.2%</td>
+          <td>34.4%</td>
+          <td>-8.8 pts</td>
+        </tr>
+        <tr>
+          <td>Pre-Appointment %</td>
+          <td>64.0%</td>
+          <td>0%</td>
+          <td>-64.0 pts</td>
+        </tr>
+        <tr>
+          <td>Hygiene Visits Per Hour</td>
+          <td>5.63</td>
+          <td>5.36</td>
+          <td>-0.27 (-4.8%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: The hygiene funnel shows two red flags. Pre-appointment percentage dropped from 64% to 0%, which is likely a data reporting issue — pre-appointing cannot realistically drop to zero. If accurate, this represents a total loss of pre-appointment scheduling discipline, which would cascade into reduced schedule fill and lower production per visit.</p>
+    <p>Hygiene re-appointment rate dropped 8.8 points (43.2% to 34.4%), which is a concern. Only 34% of hygiene patients are being reappointed. Hygiene is the engine that feeds restorative production — when reappointment is low, the entire production pipeline suffers. This is an operational execution issue, not a patient quality issue.</p>
+
+    <h2 id="leakage">Leakage</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Appointments Broken</td>
+          <td>301</td>
+          <td>234</td>
+          <td>-67 (-22.3%)</td>
+        </tr>
+        <tr>
+          <td>Appointments No-Show</td>
+          <td>51</td>
+          <td>3</td>
+          <td>-48 (-94.1%)</td>
+        </tr>
+        <tr>
+          <td>Appointments Cancelled</td>
+          <td>250</td>
+          <td>231</td>
+          <td>-19 (-7.6%)</td>
+        </tr>
+        <tr>
+          <td>Cancelled %</td>
+          <td>9.5%</td>
+          <td>4.7%</td>
+          <td>-4.8 pts</td>
+        </tr>
+        <tr>
+          <td>No-Show %</td>
+          <td>1.9%</td>
+          <td>0.1%</td>
+          <td>-1.8 pts</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: POSITIVE TREND. Leakage has improved dramatically. Broken appointments fell 22%, no-shows dropped 94%, and cancellations fell 8%. The no-show rate is nearly eliminated (0.1%), and the overall cancellation rate is down to 4.7%. This is good operational execution and shows the team is managing the schedule more effectively in 2026.</p>
+    <p>This suggests that while raw production dollars may be down, the team is doing a better job keeping patients in the chair. The lower leakage rate, combined with more appointments scheduled (up 88%), indicates better schedule management.</p>
+
+    <h1>Section 4: Schedule Utilization</h1>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Appointments Future</td>
+          <td>2,118</td>
+          <td>2,167</td>
+          <td>+49 (+2.3%)</td>
+        </tr>
+        <tr>
+          <td>Appointments Scheduled</td>
+          <td>2,619</td>
+          <td>4,931</td>
+          <td>+2,312 (+88.3%)</td>
+        </tr>
+        <tr>
+          <td>Visits Per Working Day</td>
+          <td>43.52</td>
+          <td>37.33</td>
+          <td>-6.19 (-14.2%)</td>
+        </tr>
+        <tr>
+          <td>Production Scheduled Gross</td>
+          <td>$1,225,838</td>
+          <td>$2,083,107</td>
+          <td>+$857,269 (+70%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: The schedule picture is complex. Appointments scheduled nearly doubled (up 88%), which suggests aggressive booking of treatment. However, visits per working day fell 14%. This paradox is explained by the data pattern: the practice is scheduling MORE appointments (production capacity up 70%), but seeing fewer visits per day in Q1 2026.</p>
+    <p>Possible interpretation: The practice may have shifted toward longer treatment appointments (more complex cases, implant consultations) or opened additional room time, resulting in fewer daily visit encounters but more total production value. The 70% jump in production scheduled gross supports this — the pipeline has expanded significantly.</p>
+
+    <h1>Section 5: Patient Value &amp; Mix</h1>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Annual Patient Value</td>
+          <td>$1,503.38</td>
+          <td>$1,457.88</td>
+          <td>-$45.50 (-3.0%)</td>
+        </tr>
+        <tr>
+          <td>Avg Restorative $/Exam</td>
+          <td>$982.17</td>
+          <td>$981.30</td>
+          <td>-$0.87 (-0.1%)</td>
+        </tr>
+        <tr>
+          <td>Avg Hygiene $/Visit</td>
+          <td>$145.42</td>
+          <td>$152.25</td>
+          <td>+$6.83 (+4.7%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: Patient value per patient is down 3% ($1,503 to $1,458), which suggests either a shift toward lower-value patients or reduced treatment planning depth. This aligns with the earlier finding that case dollars presented are down 9%. The restorative dollar per exam is essentially flat (down <1%), while hygiene visits are up in value (+4.7%).</p>
+    <p>The decline in annual patient value is mild and could be attributable to the 42% influx of new patients, who may have smaller initial cases. As these patients progress, their lifetime value may recover.</p>
+
+    <h1>Section 6: Team Execution</h1>
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Metric</strong></th>
+          <th><strong>Q1 2025</strong></th>
+          <th><strong>Q1 2026</strong></th>
+          <th><strong>Change</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Team Tasks Completed %</td>
+          <td>Not Reported</td>
+          <td>Not Reported</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Team Tasks Contacted %</td>
+          <td>Not Reported</td>
+          <td>Not Reported</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Recaptured Patients</td>
+          <td>43</td>
+          <td>42</td>
+          <td>-1 (-2.3%)</td>
+        </tr>
+        <tr>
+          <td>Appointments Confirmed %</td>
+          <td>59.3%</td>
+          <td>45.0%</td>
+          <td>-14.3 pts</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Analysis: Appointment confirmation rate fell 14.3 points (59.3% to 45%), which is a significant decline. Only 45% of appointments are being confirmed in 2026 vs. 59% in 2025. This represents a team execution gap — if confirmation drops, no-shows typically rise, yet we saw no-shows improve. This suggests the office may have tightened its cancellation/no-show policy or changed how it measures confirmations.</p>
+    <p>Recaptured patients are essentially flat (43 to 42), indicating stable patient reactivation. Team task completion data is not reported, so follow-up execution cannot be fully assessed from this report.</p>
+  </div>
+</body>
+</html>
