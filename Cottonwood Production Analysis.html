@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cottonwood Production Analysis</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    header {
+      border-bottom: 3px solid #2E5E8C;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .practice-name {
+      color: #2E5E8C;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .report-type {
+      color: #666;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .practice-location {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .date-range {
+      color: #999;
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    h1 {
+      color: #2E5E8C;
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    h1:first-of-type {
+      margin-top: 0;
+    }
+
+    h2 {
+      color: #2E5E8C;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 28px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      text-align: justify;
+      color: #444;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: #444;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    thead {
+      background-color: #2E5E8C;
+      color: white;
+    }
+
+    th {
+      padding: 14px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e8e8e8;
+      font-size: 14px;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #f5f7fa;
+    }
+
+    tbody tr:hover {
+      background-color: #eff3f8;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 2px solid #2E5E8C;
+    }
+
+    strong {
+      color: #2E5E8C;
+      font-weight: 600;
+    }
+
+    em {
+      color: #666;
+    }
+
+    .highlight-box {
+      background-color: #eff3f8;
+      border-left: 4px solid #2E5E8C;
+      padding: 16px;
+      margin: 24px 0;
+      border-radius: 2px;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      color: #333;
+    }
+
+    @media print {
+      body {
+        background-color: white;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      h1, h2 {
+        page-break-after: avoid;
+      }
+
+      table {
+        page-break-inside: avoid;
+      }
+
+      tr {
+        page-break-inside: avoid;
+      }
+
+      tbody tr:nth-child(odd) {
+        background-color: #f5f7fa !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="report-type">Production Analysis Report</div>
+      <div class="practice-name">Cottonwood</div>
+      <div class="practice-location">Peak Family Dental Care — Peak Family Dental Care Cottonwood</div>
+      <div class="date-range">Jan 1-Mar 18, 2025 vs Jan 1-Mar 18, 2026</div>
+    </header>
+
+    <h1 id="executive-summary">Executive Summary</h1>
+    <p>This analysis examines whether the production shortfall at Peak Family Dental Care Cottonwood is attributable to marketing (patient flow), clinical (diagnosis/acceptance), or operational (team execution/scheduling) factors. The data from Q1 2025 vs Q1 2026 reveals a complex picture where the core assumption—that marketing is the problem—requires substantial reframing.</p>
+    <p>New patient volume increased dramatically: +48% (112 to 166 patients). This is not a marketing failure—it is a marketing success. The real production challenges center on how those patients are being converted, scheduled, and retained in the system.</p>
+    <p>Key findings: While case dollars presented increased 69.5%, case dollars accepted rose only 25.7%. The case acceptance rate on total production fell 15.7 percentage points. Pre-appointment rates collapsed from 48% to 0%. These metrics suggest that the constraint is not patient volume—it is conversion, scheduling efficiency, and operational execution.</p>
+
+    <h1 id="section-1-new-patient-flow-marketing-performance">Section 1: New Patient Flow — Marketing Performance</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>New Patients</td>
+          <td>112</td>
+          <td>166</td>
+          <td>+54 (+48.2%)</td>
+        </tr>
+        <tr>
+          <td>Missing Referral Source</td>
+          <td>111</td>
+          <td>162</td>
+          <td>+51 (+45.9%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Marketing is delivering patients. New patient volume is up 48%, bringing in 54 additional patients in the same calendar period. This directly contradicts the premise that marketing isn't working. The high percentage of missing referral source data (97% in both periods) indicates a tracking issue in the PMS, not a marketing problem.</p>
+
+    <h1 id="section-2-conversion-clinical-performance">Section 2: Conversion &amp; Clinical Performance</h1>
+    <h2 id="case-acceptance">Case Acceptance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Case Acceptance %</td>
+          <td>74.5%</td>
+          <td>75.7%</td>
+          <td>+1.2pp</td>
+        </tr>
+        <tr>
+          <td>Case Acceptance % New Patients</td>
+          <td>79.7%</td>
+          <td>83.5%</td>
+          <td>+3.8pp</td>
+        </tr>
+        <tr>
+          <td>Case $ Presented</td>
+          <td>$807,790</td>
+          <td>$1,369,220</td>
+          <td>+$561,430</td>
+        </tr>
+        <tr>
+          <td>Case $ Accepted</td>
+          <td>$503,482</td>
+          <td>$632,733</td>
+          <td>+$129,252</td>
+        </tr>
+        <tr>
+          <td>Case $ Accepted %</td>
+          <td>42.0%</td>
+          <td>26.3%</td>
+          <td>-15.7pp</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This is the critical diagnosis. The doctor is presenting significantly more work (+69.5% in case dollars presented). New patient acceptance is actually improving (79.7% → 83.5%). However, the percent of presented cases being accepted has collapsed from 42% to 26.3%.</p>
+    <p>This signals a presentation or affordability problem, not a patient quality issue. If patients lacked the ability to pay, acceptance rates would be consistently low across the board. What we see instead is inconsistency between volume presented and volume accepted—a classic sign of communication breakdown or financial barriers.</p>
+
+    <h2 id="same-day-treatment">Same-Day Treatment</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Same-Day Hygiene</td>
+          <td>$23,081</td>
+          <td>$31,964</td>
+          <td>+$8,883 (+38.5%)</td>
+        </tr>
+        <tr>
+          <td>Same-Day Restorative</td>
+          <td>$226,969</td>
+          <td>$282,878</td>
+          <td>+$55,910 (+24.6%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Same-day treatment is up across the board, which is positive. This indicates the doctor is executing well in the operatory. The opportunity to expand same-day production is significant—scheduling and operational improvements could unlock more of this.</p>
+
+    <h2 id="diagnosis-rates">Diagnosis Rates</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Case Diagnosed % Hygiene</td>
+          <td>9.6%</td>
+          <td>5.3%</td>
+          <td>-4.3pp</td>
+        </tr>
+        <tr>
+          <td>Case Diagnosed % Restorative</td>
+          <td>48.7%</td>
+          <td>51.9%</td>
+          <td>+3.2pp</td>
+        </tr>
+        <tr>
+          <td>Perio Presented %</td>
+          <td>45.6%</td>
+          <td>48.3%</td>
+          <td>+2.7pp</td>
+        </tr>
+        <tr>
+          <td>Perio Visit %</td>
+          <td>44.1%</td>
+          <td>48.3%</td>
+          <td>+4.2pp</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Restorative diagnosis is stable and improving slightly. Hygiene diagnosis has declined, which may reflect different case mix or scheduling patterns. Perio presentation and visit rates are consistent, showing the doctor is tracking this category effectively.</p>
+
+    <h1 id="section-3-existing-patient-utilization">Section 3: Existing Patient Utilization</h1>
+    <h2 id="unscheduled-treatment">Unscheduled Treatment</h2>
+    <p>The prior period reported $1,160,120 in unscheduled opportunity. The current period reports $0. This suggests a reporting change in the PMS or a data structure shift, not necessarily that all treatment was scheduled. The unscheduled 0-6 months metric (309 → 387 patients) indicates there are still recent patients with diagnosed work awaiting scheduling.</p>
+
+    <h2 id="hygiene-funnel-schedule-quality">Hygiene Funnel &amp; Schedule Quality</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hygiene Re-Appointment %</td>
+          <td>35.7%</td>
+          <td>29.5%</td>
+          <td>-6.2pp</td>
+        </tr>
+        <tr>
+          <td>Pre-Appointment %</td>
+          <td>48.0%</td>
+          <td>0.0%</td>
+          <td>-48.0pp</td>
+        </tr>
+        <tr>
+          <td>Hygiene Visits Per Hour</td>
+          <td>1.19</td>
+          <td>1.01</td>
+          <td>-15.1%</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This is severe. Pre-appointment percentage has dropped from 48% to 0%—meaning the team is no longer pre-appointing patients for their next visit. This is an operational control that has been lost. When patients leave without being scheduled, hygiene production leaks out.</p>
+    <p>Hygiene re-appointment rate (29.5%) is already low—fewer than 30% of hygiene patients are being scheduled for their next visit. Combined with zero pre-appointments, this creates a pipeline failure. The office is generating demand (new patients in the door) but losing it immediately after the first visit.</p>
+
+    <h2 id="leakage-brokencancelledno-show">Leakage (Broken/Cancelled/No-Show)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Appointments Broken</td>
+          <td>100</td>
+          <td>26</td>
+          <td>-74 (-74.0%)</td>
+        </tr>
+        <tr>
+          <td>Appointments Cancelled</td>
+          <td>96</td>
+          <td>21</td>
+          <td>-75 (-78.1%)</td>
+        </tr>
+        <tr>
+          <td>Cancelled %</td>
+          <td>7.6%</td>
+          <td>0.7%</td>
+          <td>-6.9pp</td>
+        </tr>
+        <tr>
+          <td>No-Show %</td>
+          <td>0.3%</td>
+          <td>0.2%</td>
+          <td>-0.1pp</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>This is significant and positive. Cancellation and broken appointment rates have dropped dramatically. The 0.7% cancellation rate is excellent. This suggests the practice has tightened scheduling discipline and is retaining appointments once booked.</p>
+
+    <h1 id="section-4-schedule-utilization">Section 4: Schedule Utilization</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Appointments Future</td>
+          <td>947</td>
+          <td>1,125</td>
+          <td>+178</td>
+        </tr>
+        <tr>
+          <td>Visits Per Working Day</td>
+          <td>22.49</td>
+          <td>25.15</td>
+          <td>+2.66 (+11.8%)</td>
+        </tr>
+        <tr>
+          <td>Production Scheduled Gross</td>
+          <td>$582,738</td>
+          <td>$1,074,288</td>
+          <td>+$491,550 (+84.4%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The schedule is fuller and more productive. Visits per working day are up 11.8%, and scheduled production has nearly doubled (+84.4%). This indicates the practice has increased schedule density and is seeing more patients per day. The office has capacity and is using it.</p>
+
+    <h1 id="section-5-patient-value-mix">Section 5: Patient Value &amp; Mix</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Annual Patient Value</td>
+          <td>$1,160</td>
+          <td>$1,103</td>
+          <td>-$57 (-4.9%)</td>
+        </tr>
+        <tr>
+          <td>Avg Restorative $/Exam</td>
+          <td>$899</td>
+          <td>$866</td>
+          <td>-$33 (-3.6%)</td>
+        </tr>
+        <tr>
+          <td>Avg Hygiene $/Visit</td>
+          <td>$180</td>
+          <td>$168</td>
+          <td>-$12 (-6.4%)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Patient value has declined modestly (4.9%). This typically indicates slightly lower treatment plans per patient or a higher proportion of hygiene-only visits in the mix. The decline is not severe—it reflects a shift in case mix, not a fundamental problem with patient quality or diagnostic acumen.</p>
+
+    <h1 id="section-6-team-execution">Section 6: Team Execution</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Prior Period</th>
+          <th>Current Period</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Recaptured Patients</td>
+          <td>34</td>
+          <td>26</td>
+          <td>-8 (-23.5%)</td>
+        </tr>
+        <tr>
+          <td>Appointments Confirmed %</td>
+          <td>50.7%</td>
+          <td>46.3%</td>
+          <td>-4.4pp</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Appointment confirmation rate has declined from 50.7% to 46.3%, which is concerning. This means fewer than half of scheduled appointments are being confirmed before the visit. Low confirmation rates correlate with higher no-shows and missed appointments.</p>
+    <p>Recaptured patients (reactivation) are down 23.5%. This is an operational metric that depends on systematic outreach. If the team isn't proactively reaching out to lapsed patients, they won't return.</p>
+
+    <h1 id="root-cause-summary-the-defense-framework">Root Cause Summary: The Defense Framework</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Root Cause</th>
+          <th>Key Indicators</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Not enough patients (Marketing)</td>
+          <td>New Patients: ↑48% (112→166)<br />Online Scheduled: Low reporting</td>
+          <td>On Track</td>
+        </tr>
+        <tr>
+          <td>Not enough diagnosis (Doctor)</td>
+          <td>Case Diagnosed % Hygiene: ↓44.8%<br />Restorative: ↑6.6%</td>
+          <td>Mixed Signals</td>
+        </tr>
+        <tr>
+          <td>Not enough conversion (Team/Process)</td>
+          <td>Case $ Accepted %: ↓37.4%<br />Pre-Appt %: ↓100%<br />Cancellations: ↓78.1%</td>
+          <td>At Risk</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="what-the-data-actually-shows">What the Data Actually Shows</h2>
+    <ul>
+      <li><p>Marketing: On Track. New patient volume is up 48%, contradicting the assertion that marketing is broken. The pipeline is healthy and full. This is not the problem.</p></li>
+      <li><p>Doctor/Diagnosis: Mixed Signals. The doctor is diagnosing more restorative work, but presenting 69.5% more in case dollars while acceptance rates are falling. The issue is not that treatment opportunities are being missed—it is that the presentation is not converting patients to treatment.</p></li>
+      <li><p>Team/Process: At Risk (PRIMARY CONCERN). Pre-appointment rates have collapsed to zero. Hygiene re-appointment is only 29.5%. Appointment confirmation is below 50%. Recaptured patients are down. The operations are not capturing and scheduling the demand that marketing and the doctor are generating.</p></li>
+    </ul>
+
+    <h1 id="recommended-conversation-with-dr.-martinez">Recommended Conversation with Dr. Martinez</h1>
+    <h2 id="step-1-validate-the-premise">Step 1: Validate the Premise</h2>
+    <p>"Dr. Martinez, let's look at whether patient flow is actually the issue. We've reviewed Q1 2025 vs Q1 2026 side by side. New patients are at 166 in 2026, up from 112 in 2025. That's 54 more patients—a 48% increase. Marketing is delivering patients at a stronger rate than last year. So from a volume standpoint, the pipeline is healthy."</p>
+
+    <h2 id="step-2-show-data">Step 2: Show Data</h2>
+    <p>Key metrics supporting the reframing:</p>
+    <ul>
+      <li><p>New Patients: 112 → 166 (+48%). Marketing success confirmed.</p></li>
+      <li><p>Case $ Presented: $807,790 → $1,369,220 (+69.5%). You're diagnosing significantly more work.</p></li>
+      <li><p>Case $ Accepted %: 42% → 26.3% (-15.7pp). But patients are not accepting the treatment at the same rate.</p></li>
+      <li><p>Pre-Appointment %: 48% → 0%. The team stopped pre-appointing patients for their next visit—a major operational control loss.</p></li>
+      <li><p>Hygiene Re-Appointment %: 35.7% → 29.5%. Fewer than 30% of hygiene patients are scheduled for their next visit.</p></li>
+      <li><p>Appointment Confirmation %: 50.7% → 46.3%. Fewer than half of appointments are confirmed before the visit.</p></li>
+    </ul>
+
+    <h2 id="step-3-reframe-the-conversation">Step 3: Reframe the Conversation</h2>
+    <p>"Dr. Martinez, the data tells a different story than marketing. You have more patients coming in, and you're diagnosing more treatment. The challenge is that the practice isn't converting and scheduling all the work you're identifying. You presented $561K more in cases but patients are only accepting $129K more. That's a 23% gap between diagnosis and acceptance.</p>
+    <p>And beyond acceptance: even when patients say yes, they're not being scheduled. Pre-appointments dropped from 48% to zero. Hygiene reappointments are at 29.5%. These are operational—not marketing—problems. The business model depends on the team scheduling work when patients leave. If that's not happening, production falls regardless of how many new patients we bring in.</p>
+    <p>If we focus on three things—restarting pre-appointments, getting hygiene reappointment to 45%+, and confirming appointments—we unlock production without needing to change marketing or how you practice clinically."</p>
+  </div>
+</body>
+</html>
